@@ -1,0 +1,41 @@
+import discord
+
+# Переменная intents - хранит привилегии бота
+intents = discord.Intents.default()
+# Включаем привелегию на чтение сообщений
+intents.message_content = True
+# Создаем бота в переменной client и передаем все привелегии
+client = discord.Client(intents=intents)
+
+@client.event
+async def on_ready():
+    print(f'We have logged in as {client.user}')
+
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+    if message.content.startswith('$привет'):
+        await message.channel.send("привет!Я эко бот для того чтобы увидеть полный список команд напиши $help")
+    elif message.content.startswith('$help'):
+        await message.channel.send("1 команда-$сколько разлагаеться(стекло,пластик,батарейки,бумага)2 команда-как правильно утилизировать(стекло,пластик,батарейки,бумага)")
+    elif message.content.startswith('$сколько разлагаеться стекло'):
+        await message.channel.send("стекло разлагается около миллиона лет.")
+    elif message.content.startswith('$сколько разлагаются батарейки'):
+        await message.channel.send("батарейки разлагаются около ста лет")    
+    elif message.content.startswith('$сколько разлагается пластик'):
+        await message.channel.send('Подложки из полистирола для мяса, яиц и овощей — от 10 до 100 лет.Одноразовая посуда — от 400 до 700 лет.Влажные салфетки — от 100 лет.Губка для мытья посуды — 200 лет.Пластиковая бутылка — 450 лет.Пластиковая зубная щетка — больше 450 лет.Одноразовый подгузник — от 250 до 500 лет.Полиэтиленовый пакет — сотни лет.Ватные палочки и диски — перед использованием стоит проверить их состав.Пакетированный чай — в природе разлагается лишь на 70–80 %.')
+    elif message.content.startswith('$сколько разлагается бумага'):
+        await message.channel.send('Газетная бумага разлагается за от 1 до 4 месяцев. Скорость зависит от количества краски на бумаге и толщины листов.Картонные коробки или картон имеют период разложения от 3 до 6 месяцев. Скорость зависит от толщины картона и нанесённой на него краски.Офисная бумага разлагается примерно 2 года. Это связано с тем, что бумагу для документов специально обрабатывают для длительного хранения.')
+    elif message.content.startswith('$как правильно утилизировать стекло'):
+        await message.channel.send("здать в пункт приёма стеклотары.")
+    elif message.content.startswith('$как правильно утилизировать бумагу'):
+        await message.channel.send("здать в пункт приёма макулатуры.")
+    elif message.content.startswith('$как правильно утилизировать пластик'):
+        await message.channel.send("отдать на вторичную переработку в экоцетр.")
+    elif message.content.startswith('$как правильно утилизировать батерейки'):
+        await message.channel.send("выкинуть в специальный контейнер для приёма батареек.")                                     
+    else:
+        await message.channel.send(message.content)
+
+client.run("")
