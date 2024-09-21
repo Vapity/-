@@ -1,0 +1,63 @@
+import os
+import random
+import discord
+from discord.ext import commands
+
+intents = discord.Intents.default()
+intents.message_content = True
+bot = commands.Bot(command_prefix='$', intents=intents)
+print(os.listdir('steclo'))
+print(os.listdir('plastik'))
+@bot.event
+async def on_ready():
+    print(f'We have logged in as {bot.user}')
+
+@bot.command()
+async def привет(ctx):
+    await ctx.send(f'привет!Я эко бот для того чтобы увидеть полный список команд напиши $списоккоманд')
+
+@bot.command()
+async def списоккоманд(ctx):
+    await ctx.send('1 команда-сколько разлагаеться(стекло,пластик,батарейки,бумага)2 команда-как правильно утилизировать(стекло,пластик,батарейки,бумага) команда 3 подделка из (стекла,пластика)')
+
+@bot.command()
+async def сколькоразлагаетьсястекло(ctx):
+    await ctx.send('стекло разлагается около миллиона лет.')
+
+@bot.command()
+async def сколькоразлагаютсябатарейки(ctx):
+    await ctx.send('батарейки разлагаются около ста лет')
+
+@bot.command()
+async def сколькоразлагаетсяпластик(ctx):
+    await ctx.send('Подложки из полистирола для мяса, яиц и овощей — от 10 до 100 лет.Одноразовая посуда — от 400 до 700 лет.Влажные салфетки — от 100 лет.Губка для мытья посуды — 200 лет.Пластиковая бутылка — 450 лет.Пластиковая зубная щетка — больше 450 лет.Одноразовый подгузник — от 250 до 500 лет.Полиэтиленовый пакет — сотни лет.Ватные палочки и диски — перед использованием стоит проверить их состав.Пакетированный чай — в природе разлагается лишь на 70–80 %.')
+
+@bot.command()
+async def сколькоразлагаетсябумага(ctx):
+    await ctx.send('Газетная бумага разлагается за от 1 до 4 месяцев. Скорость зависит от количества краски на бумаге и толщины листов.Картонные коробки или картон имеют период разложения от 3 до 6 месяцев. Скорость зависит от толщины картона и нанесённой на него краски.Офисная бумага разлагается примерно 2 года. Это связано с тем, что бумагу для документов специально обрабатывают для длительного хранения.')
+
+@bot.command()
+async def какправильноутилизироватьстекло(ctx):
+    await ctx.send('здать в пункт приёма стеклотары.')
+
+@bot.command()
+async def какправильноутилизироватьбумагу(ctx):
+    await ctx.send('здать в пункт приёма макулатуры.')
+
+@bot.command()
+async def какправильноутилизироватьпластик(ctx):
+    await ctx.send('отдать на вторичную переработку в экоцетр.')
+
+@bot.command()
+async def подделкаизстекла(ctx):
+    img_name = random.choice(os.listdir('steclo'))
+    with open(f'steclo/{img_name}', 'rb') as f:
+        picture = discord.File(f)
+
+@bot.command()
+async def подделкаизпластика(ctx):
+    img_name2 = random.choice(os.listdir('plastik'))
+    with open(f'plastik/{img_name2}', 'rb') as f:
+        picture = discord.File(f)
+
+bot.run('')
